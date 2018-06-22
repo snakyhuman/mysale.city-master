@@ -1,0 +1,831 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище mysale_dbModel" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="agent_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="agents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="uint" Nullable="false" />
+          <Property Name="company_id" Type="uint" />
+          <Property Name="agent_status" Type="uint" Nullable="false" />
+          <Property Name="date_create" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="image" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cities">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="companies">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_name" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="city" Type="uint" Nullable="false" />
+          <Property Name="adress" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="web_adress" Type="varchar" MaxLength="100" />
+          <Property Name="company_login" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="company_password" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="inn" Type="varchar" MaxLength="20" />
+          <Property Name="personal_account" Type="int" Nullable="false" />
+          <Property Name="registration_date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="paying_time" Type="int" Nullable="false" />
+          <Property Name="company_status" Type="uint" Nullable="false" />
+          <Property Name="category" Type="uint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="company_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tasks">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="company_id" Type="uint" Nullable="false" />
+          <Property Name="date_start" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="date_finish" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="text" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="info" Type="varchar" MaxLength="1024" />
+        </EntityType>
+        <EntityType Name="tickets">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ticket_type" Type="uint" Nullable="false" />
+          <Property Name="from" Type="uint" Nullable="false" />
+          <Property Name="for" Type="uint" Nullable="false" />
+          <Property Name="text" Type="varchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="tickets_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="type" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="user_statuses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_status" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="uint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="registration_date" Type="datetime" Precision="0" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_status" Type="uint" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="45" />
+          <Property Name="surname" Type="varchar" MaxLength="45" />
+          <Property Name="middle_name" Type="varchar" MaxLength="45" />
+          <Property Name="date_birth" Type="date" Nullable="false" />
+          <Property Name="tel_number" Type="varchar" MaxLength="15" />
+          <Property Name="login" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="45" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "def.mysale_db.tasks_view" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="tasks_view">
+          <Key>
+            <PropertyRef Name="company_name" />
+            <PropertyRef Name="date_start" />
+            <PropertyRef Name="date_finish" />
+            <PropertyRef Name="text" />
+            <PropertyRef Name="title" />
+          </Key>
+          <Property Name="company_name" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="date_start" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="date_finish" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="info" Type="varchar" MaxLength="1024" />
+          <Property Name="text" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="64" Nullable="false" />
+        </EntityType>
+        <Association Name="agent_status1">
+          <End Role="agent_status" Type="Self.agent_status" Multiplicity="1" />
+          <End Role="agents" Type="Self.agents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agents">
+              <PropertyRef Name="agent_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="category">
+          <End Role="categories" Type="Self.categories" Multiplicity="1" />
+          <End Role="companies" Type="Self.companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="companies">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="city">
+          <End Role="cities" Type="Self.cities" Multiplicity="1" />
+          <End Role="companies" Type="Self.companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="companies">
+              <PropertyRef Name="city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="company_id">
+          <End Role="companies" Type="Self.companies" Multiplicity="0..1" />
+          <End Role="agents" Type="Self.agents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agents">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="company_index">
+          <End Role="companies" Type="Self.companies" Multiplicity="1" />
+          <End Role="tasks" Type="Self.tasks" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tasks">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="company_status1">
+          <End Role="company_status" Type="Self.company_status" Multiplicity="1" />
+          <End Role="companies" Type="Self.companies" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="companies">
+              <PropertyRef Name="company_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="for">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="for" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="from">
+          <End Role="companies" Type="Self.companies" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="from" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_type">
+          <End Role="tickets_type" Type="Self.tickets_type" Multiplicity="1" />
+          <End Role="tickets" Type="Self.tickets" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tickets_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="ticket_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_id">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="agents" Type="Self.agents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agents">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_status">
+          <End Role="user_statuses" Type="Self.user_statuses" Multiplicity="1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_statuses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="user_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище mysale_dbModelContainer">
+          <EntitySet Name="agent_status" EntityType="Self.agent_status" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="agents" EntityType="Self.agents" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="cities" EntityType="Self.cities" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="companies" EntityType="Self.companies" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="company_status" EntityType="Self.company_status" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="tasks" EntityType="Self.tasks" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="tickets" EntityType="Self.tickets" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="tickets_type" EntityType="Self.tickets_type" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="user_statuses" EntityType="Self.user_statuses" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="mysale_db" store:Type="Tables" />
+          <EntitySet Name="tasks_view" EntityType="Self.tasks_view" store:Type="Views" store:Schema="mysale_db">
+            <DefiningQuery>SELECT
+`tasks_view`.`company_name`, 
+`tasks_view`.`date_start`, 
+`tasks_view`.`date_finish`, 
+`tasks_view`.`info`, 
+`tasks_view`.`text`, 
+`tasks_view`.`title`
+FROM `tasks_view` AS `tasks_view`</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="agent_status1" Association="Self.agent_status1">
+            <End Role="agent_status" EntitySet="agent_status" />
+            <End Role="agents" EntitySet="agents" />
+          </AssociationSet>
+          <AssociationSet Name="category" Association="Self.category">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="companies" EntitySet="companies" />
+          </AssociationSet>
+          <AssociationSet Name="city" Association="Self.city">
+            <End Role="cities" EntitySet="cities" />
+            <End Role="companies" EntitySet="companies" />
+          </AssociationSet>
+          <AssociationSet Name="company_id" Association="Self.company_id">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="agents" EntitySet="agents" />
+          </AssociationSet>
+          <AssociationSet Name="company_index" Association="Self.company_index">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="tasks" EntitySet="tasks" />
+          </AssociationSet>
+          <AssociationSet Name="company_status1" Association="Self.company_status1">
+            <End Role="company_status" EntitySet="company_status" />
+            <End Role="companies" EntitySet="companies" />
+          </AssociationSet>
+          <AssociationSet Name="for" Association="Self.for">
+            <End Role="users" EntitySet="users" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="from" Association="Self.from">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_type" Association="Self.ticket_type">
+            <End Role="tickets_type" EntitySet="tickets_type" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="user_id" Association="Self.user_id">
+            <End Role="users" EntitySet="users" />
+            <End Role="agents" EntitySet="agents" />
+          </AssociationSet>
+          <AssociationSet Name="user_status" Association="Self.user_status">
+            <End Role="user_statuses" EntitySet="user_statuses" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mysale_dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="agent_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="agents" Relationship="Self.agent_status1" FromRole="agent_status" ToRole="agents" />
+        </EntityType>
+        <EntityType Name="agent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int64" Nullable="false" />
+          <Property Name="company_id" Type="Int64" Nullable="false" />
+          <Property Name="agent_status" Type="Int64" Nullable="false" />
+          <Property Name="date_create" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="agent_status1" Relationship="Self.agent_status1" FromRole="agents" ToRole="agent_status" />
+          <NavigationProperty Name="company" Relationship="Self.company_id" FromRole="agents" ToRole="companies" />
+          <NavigationProperty Name="user" Relationship="Self.user_id" FromRole="agents" ToRole="users" />
+        </EntityType>
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="image" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="companies" Relationship="Self.category1" FromRole="categories" ToRole="companies" />
+        </EntityType>
+        <EntityType Name="city">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="companies" Relationship="Self.city1" FromRole="cities" ToRole="companies" />
+        </EntityType>
+        <EntityType Name="company">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_name" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="Int64" Nullable="false" />
+          <Property Name="adress" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="web_adress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="company_login" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="company_password" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="inn" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="personal_account" Type="Int32" Nullable="false" />
+          <Property Name="registration_date" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="paying_time" Type="Int32" Nullable="false" />
+          <Property Name="company_status" Type="Int64" Nullable="false" />
+          <Property Name="category" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="agents" Relationship="Self.company_id" FromRole="companies" ToRole="agents" />
+          <NavigationProperty Name="category1" Relationship="Self.category1" FromRole="companies" ToRole="categories" />
+          <NavigationProperty Name="city1" Relationship="Self.city1" FromRole="companies" ToRole="cities" />
+          <NavigationProperty Name="tasks" Relationship="Self.company_index" FromRole="companies" ToRole="tasks" />
+          <NavigationProperty Name="company_status1" Relationship="Self.company_status1" FromRole="companies" ToRole="company_status" />
+          <NavigationProperty Name="tickets" Relationship="Self.from" FromRole="companies" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="company_status">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="companies" Relationship="Self.company_status1" FromRole="company_status" ToRole="companies" />
+        </EntityType>
+        <EntityType Name="task">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="company_id" Type="Int64" Nullable="false" />
+          <Property Name="date_start" Type="DateTime" Nullable="false" />
+          <Property Name="date_finish" Type="DateTime" Nullable="false" />
+          <Property Name="title" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="text" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="info" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="company" Relationship="Self.company_index" FromRole="tasks" ToRole="companies" />
+        </EntityType>
+        <EntityType Name="ticket">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ticket_type" Type="Int64" Nullable="false" />
+          <Property Name="from" Type="Int64" Nullable="false" />
+          <Property Name="for" Type="Int64" Nullable="false" />
+          <Property Name="text" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="company" Relationship="Self.from" FromRole="tickets" ToRole="companies" />
+          <NavigationProperty Name="user" Relationship="Self.for" FromRole="tickets" ToRole="users" />
+          <NavigationProperty Name="tickets_type" Relationship="Self.ticket_type" FromRole="tickets" ToRole="tickets_type" />
+        </EntityType>
+        <EntityType Name="tickets_type">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="type" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tickets" Relationship="Self.ticket_type" FromRole="tickets_type" ToRole="tickets" />
+        </EntityType>
+        <EntityType Name="user_statuses">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_status" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="users" Relationship="mysale_dbModel.user_status" FromRole="user_statuses" ToRole="user" />
+        </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="registration_date" Type="DateTime" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_status" Type="Int64" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="surname" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="middle_name" Type="String" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="date_birth" Type="DateTime" Nullable="false" />
+          <Property Name="tel_number" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="agents" Relationship="Self.user_id" FromRole="users" ToRole="agents" />
+          <NavigationProperty Name="tickets" Relationship="Self.for" FromRole="users" ToRole="tickets" />
+          <Property Name="login" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="user_statuses" Relationship="mysale_dbModel.user_status" FromRole="user" ToRole="user_statuses" />
+        </EntityType>
+        <Association Name="agent_status1">
+          <End Role="agent_status" Type="Self.agent_status" Multiplicity="1" />
+          <End Role="agents" Type="Self.agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="agent_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agents">
+              <PropertyRef Name="agent_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="company_id">
+          <End Role="companies" Type="Self.company" Multiplicity="1" />
+          <End Role="agents" Type="Self.agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agents">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="user_id">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="agents" Type="Self.agent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="agents">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="category1">
+          <End Role="categories" Type="Self.category" Multiplicity="1" />
+          <End Role="companies" Type="Self.company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="companies">
+              <PropertyRef Name="category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="city1">
+          <End Role="cities" Type="Self.city" Multiplicity="1" />
+          <End Role="companies" Type="Self.company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cities">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="companies">
+              <PropertyRef Name="city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="company_index">
+          <End Role="companies" Type="Self.company" Multiplicity="1" />
+          <End Role="tasks" Type="Self.task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tasks">
+              <PropertyRef Name="company_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="company_status1">
+          <End Role="company_status" Type="Self.company_status" Multiplicity="1" />
+          <End Role="companies" Type="Self.company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company_status">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="companies">
+              <PropertyRef Name="company_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="from">
+          <End Role="companies" Type="Self.company" Multiplicity="1" />
+          <End Role="tickets" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="companies">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="from" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="for">
+          <End Role="users" Type="Self.user" Multiplicity="1" />
+          <End Role="tickets" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="for" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ticket_type">
+          <End Role="tickets_type" Type="Self.tickets_type" Multiplicity="1" />
+          <End Role="tickets" Type="Self.ticket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tickets_type">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="tickets">
+              <PropertyRef Name="ticket_type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mysale_dbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="agent_status" EntityType="Self.agent_status" />
+          <EntitySet Name="agents" EntityType="Self.agent" />
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="cities" EntityType="Self.city" />
+          <EntitySet Name="companies" EntityType="Self.company" />
+          <EntitySet Name="company_status" EntityType="Self.company_status" />
+          <EntitySet Name="tasks" EntityType="Self.task" />
+          <EntitySet Name="tickets" EntityType="Self.ticket" />
+          <EntitySet Name="tickets_type" EntityType="Self.tickets_type" />
+          <EntitySet Name="user_statuses" EntityType="Self.user_statuses" />
+          <EntitySet Name="users" EntityType="Self.user" />
+          <AssociationSet Name="agent_status1" Association="Self.agent_status1">
+            <End Role="agent_status" EntitySet="agent_status" />
+            <End Role="agents" EntitySet="agents" />
+          </AssociationSet>
+          <AssociationSet Name="company_id" Association="Self.company_id">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="agents" EntitySet="agents" />
+          </AssociationSet>
+          <AssociationSet Name="user_id" Association="Self.user_id">
+            <End Role="users" EntitySet="users" />
+            <End Role="agents" EntitySet="agents" />
+          </AssociationSet>
+          <AssociationSet Name="category" Association="Self.category1">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="companies" EntitySet="companies" />
+          </AssociationSet>
+          <AssociationSet Name="city" Association="Self.city1">
+            <End Role="cities" EntitySet="cities" />
+            <End Role="companies" EntitySet="companies" />
+          </AssociationSet>
+          <AssociationSet Name="company_index" Association="Self.company_index">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="tasks" EntitySet="tasks" />
+          </AssociationSet>
+          <AssociationSet Name="company_status1" Association="Self.company_status1">
+            <End Role="company_status" EntitySet="company_status" />
+            <End Role="companies" EntitySet="companies" />
+          </AssociationSet>
+          <AssociationSet Name="from" Association="Self.from">
+            <End Role="companies" EntitySet="companies" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="for" Association="Self.for">
+            <End Role="users" EntitySet="users" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="ticket_type" Association="Self.ticket_type">
+            <End Role="tickets_type" EntitySet="tickets_type" />
+            <End Role="tickets" EntitySet="tickets" />
+          </AssociationSet>
+          <AssociationSet Name="user_status" Association="mysale_dbModel.user_status">
+            <End Role="user_statuses" EntitySet="user_statuses" />
+            <End Role="user" EntitySet="users" />
+          </AssociationSet>
+          <EntitySet Name="tasks_view" EntityType="mysale_dbModel.tasks_view" />
+        </EntityContainer>
+        <Association Name="user_status">
+          <End Type="mysale_dbModel.user_statuses" Role="user_statuses" Multiplicity="1" />
+          <End Type="mysale_dbModel.user" Role="user" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="user_statuses">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="user">
+              <PropertyRef Name="user_status" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tasks_view">
+          <Key>
+            <PropertyRef Name="company_name" />
+            <PropertyRef Name="date_start" />
+            <PropertyRef Name="date_finish" />
+            <PropertyRef Name="text" />
+            <PropertyRef Name="title" />
+          </Key>
+          <Property Name="company_name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="date_start" Type="DateTime" Nullable="false" />
+          <Property Name="date_finish" Type="DateTime" Nullable="false" />
+          <Property Name="info" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="text" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="title" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище mysale_dbModelContainer" CdmEntityContainer="mysale_dbEntities">
+          <EntitySetMapping Name="agent_status">
+            <EntityTypeMapping TypeName="mysale_dbModel.agent_status">
+              <MappingFragment StoreEntitySet="agent_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="agents">
+            <EntityTypeMapping TypeName="mysale_dbModel.agent">
+              <MappingFragment StoreEntitySet="agents">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="agent_status" ColumnName="agent_status" />
+                <ScalarProperty Name="date_create" ColumnName="date_create" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="mysale_dbModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="image" ColumnName="image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cities">
+            <EntityTypeMapping TypeName="mysale_dbModel.city">
+              <MappingFragment StoreEntitySet="cities">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="companies">
+            <EntityTypeMapping TypeName="mysale_dbModel.company">
+              <MappingFragment StoreEntitySet="companies">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="adress" ColumnName="adress" />
+                <ScalarProperty Name="web_adress" ColumnName="web_adress" />
+                <ScalarProperty Name="company_login" ColumnName="company_login" />
+                <ScalarProperty Name="company_password" ColumnName="company_password" />
+                <ScalarProperty Name="inn" ColumnName="inn" />
+                <ScalarProperty Name="personal_account" ColumnName="personal_account" />
+                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
+                <ScalarProperty Name="paying_time" ColumnName="paying_time" />
+                <ScalarProperty Name="company_status" ColumnName="company_status" />
+                <ScalarProperty Name="category" ColumnName="category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="company_status">
+            <EntityTypeMapping TypeName="mysale_dbModel.company_status">
+              <MappingFragment StoreEntitySet="company_status">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasks">
+            <EntityTypeMapping TypeName="mysale_dbModel.task">
+              <MappingFragment StoreEntitySet="tasks">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="company_id" ColumnName="company_id" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="date_finish" ColumnName="date_finish" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="info" ColumnName="info" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tickets">
+            <EntityTypeMapping TypeName="mysale_dbModel.ticket">
+              <MappingFragment StoreEntitySet="tickets">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ticket_type" ColumnName="ticket_type" />
+                <ScalarProperty Name="from" ColumnName="from" />
+                <ScalarProperty Name="for" ColumnName="for" />
+                <ScalarProperty Name="text" ColumnName="text" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tickets_type">
+            <EntityTypeMapping TypeName="mysale_dbModel.tickets_type">
+              <MappingFragment StoreEntitySet="tickets_type">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_statuses">
+            <EntityTypeMapping TypeName="mysale_dbModel.user_statuses">
+              <MappingFragment StoreEntitySet="user_statuses">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="mysale_dbModel.user">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="registration_date" ColumnName="registration_date" />
+                <ScalarProperty Name="user_status" ColumnName="user_status" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="middle_name" ColumnName="middle_name" />
+                <ScalarProperty Name="date_birth" ColumnName="date_birth" />
+                <ScalarProperty Name="tel_number" ColumnName="tel_number" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tasks_view">
+            <EntityTypeMapping TypeName="mysale_dbModel.tasks_view">
+              <MappingFragment StoreEntitySet="tasks_view">
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="text" ColumnName="text" />
+                <ScalarProperty Name="info" ColumnName="info" />
+                <ScalarProperty Name="date_finish" ColumnName="date_finish" />
+                <ScalarProperty Name="date_start" ColumnName="date_start" />
+                <ScalarProperty Name="company_name" ColumnName="company_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
