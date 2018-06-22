@@ -26,7 +26,12 @@ namespace mysalecity
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content/style3.css"));
+                      "~/Content/style4.css"));
+            bundles.Add(new ScriptBundle("~/bundles/datepicker").Include(
+            "~/Scripts/bootstrap-datetimepicker.ru.js","~/Scripts/bootstrap-datetimepicker.js"));
+
+           bundles.Add(new StyleBundle("~/Content/datepicker").Include(
+            "~/Content/bootstrap-datetimepicker.css"));
         }
     }
 }

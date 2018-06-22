@@ -14,7 +14,19 @@ namespace mysalecity.Controllers
         // GET: categories
         public ActionResult Index()
         {
-            return View(db.categories.ToList());
+
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
+
+            return View();
+        }
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
     }

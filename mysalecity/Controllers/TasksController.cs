@@ -17,13 +17,18 @@ namespace mysalecity.Controllers
         // GET: tasks
         public ActionResult Index()
         {
-            var tasks = db.tasks.Include(t => t.company);
-            return View(tasks.ToList());
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
+
+            var tasks = db.tasks.Include(t => t.company).ToList<task>();
+            return View(tasks);
         }
 
         // GET: tasks/Details/5
         public ActionResult Details(long? id)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +44,8 @@ namespace mysalecity.Controllers
         // GET: tasks/Create
         public ActionResult Create()
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             ViewBag.company_id = new SelectList(db.companies, "id", "company_name");
             return View();
         }
@@ -50,6 +57,8 @@ namespace mysalecity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,company_id,date_start,date_finish,title,text,info")] task task)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (ModelState.IsValid)
             {
                 db.tasks.Add(task);
@@ -64,6 +73,8 @@ namespace mysalecity.Controllers
         // GET: tasks/Edit/5
         public ActionResult Edit(long? id)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -84,6 +95,8 @@ namespace mysalecity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,company_id,date_start,date_finish,title,text,info")] task task)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (ModelState.IsValid)
             {
                 db.Entry(task).State = EntityState.Modified;
@@ -97,6 +110,8 @@ namespace mysalecity.Controllers
         // GET: tasks/Delete/5
         public ActionResult Delete(long? id)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -114,6 +129,8 @@ namespace mysalecity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             task task = db.tasks.Find(id);
             db.tasks.Remove(task);
             db.SaveChanges();
@@ -122,6 +139,8 @@ namespace mysalecity.Controllers
 
         protected override void Dispose(bool disposing)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (disposing)
             {
                 db.Dispose();

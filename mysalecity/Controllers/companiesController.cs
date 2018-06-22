@@ -17,6 +17,8 @@ namespace mysalecity.Controllers
         // GET: companies
         public ActionResult Index()
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             var companies = db.companies.Include(c => c.category1).Include(c => c.city1).Include(c => c.company_status1);
             return View(companies.ToList());
         }
@@ -24,6 +26,8 @@ namespace mysalecity.Controllers
         // GET: companies/Details/5
         public ActionResult Details(long? id)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +43,8 @@ namespace mysalecity.Controllers
         // GET: companies/Create
         public ActionResult Create()
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             ViewBag.category = new SelectList(db.categories, "id", "name");
             ViewBag.city = new SelectList(db.cities, "id", "name");
             ViewBag.company_status = new SelectList(db.company_status, "id", "name");
@@ -52,6 +58,8 @@ namespace mysalecity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,company_name,city,adress,web_adress,company_login,company_password,inn,personal_account,registration_date,paying_time,company_status,category")] company company)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (ModelState.IsValid)
             {
                 db.companies.Add(company);
@@ -68,6 +76,8 @@ namespace mysalecity.Controllers
         // GET: companies/Edit/5
         public ActionResult Edit(long? id)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -90,6 +100,8 @@ namespace mysalecity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,company_name,city,adress,web_adress,company_login,company_password,inn,personal_account,registration_date,paying_time,company_status,category")] company company)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (ModelState.IsValid)
             {
                 db.Entry(company).State = EntityState.Modified;
@@ -105,6 +117,8 @@ namespace mysalecity.Controllers
         // GET: companies/Delete/5
         public ActionResult Delete(long? id)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -122,6 +136,8 @@ namespace mysalecity.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             company company = db.companies.Find(id);
             db.companies.Remove(company);
             db.SaveChanges();
@@ -130,6 +146,8 @@ namespace mysalecity.Controllers
 
         protected override void Dispose(bool disposing)
         {
+            var Categories = db.categories.ToList();
+            this.ViewData["cat"] = Categories;
             if (disposing)
             {
                 db.Dispose();

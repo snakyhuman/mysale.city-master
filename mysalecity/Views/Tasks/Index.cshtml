@@ -1,63 +1,52 @@
 ﻿@model IEnumerable<mysalecity.Models.task>
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.date_start)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.date_finish)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.info)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.company.company_name)
-        </th>
-        <th></th>
-    </tr>
+   
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_start)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.date_finish)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.info)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.company.company_name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/parallax/3.1.0/parallax.js"></script>
 
-</table>
+
+<div class="container">
+    <div class="row">
+      
+        <div class="col-md-12">
+
+            @foreach (var item in Model)
+        {
+
+
+
+
+            <div class="card alert-danger" style=" margin:auto">
+                <div class="card-body p-1 alert-success">
+                    <h5 class="card-title text-center">@Html.DisplayFor(modelItem => item.title)</h5>
+                    <p class="card-text">@Html.DisplayFor(modelItem => item.text)</p>
+                    <br />
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">с @Html.DisplayFor(modelItem => item.date_start)</li>
+                        <li class="list-inline-item">по @Html.DisplayFor(modelItem => item.date_finish)</li>
+
+                        <p class=""> @Html.DisplayFor(modelItem => item.info)</p>
+                    </ul>
+                    <div class=" btn-group " role="group" style="align-items:center ">
+
+                        @Html.ActionLink("Edit", "Edit", new { id = item.id }, new { @class = "btn btn-primary btn-secondary " })
+                        @Html.ActionLink("Details", "Details", new { id = item.id }, new { @class = "btn btn-success btn-secondary " })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.id }, new { @class = "btn btn-danger btn-secondary " })
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+    }
+
+        </div>
+    </div>
+</div>
+<br />
+<p> @Html.ActionLink("Создать", "Create", null, new { @class = "btn btn-primary btn-block" })</p>
