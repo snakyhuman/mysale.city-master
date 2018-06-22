@@ -301,11 +301,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\tasks\Create.cshtml" />
-    <Content Include="Views\tasks\Delete.cshtml" />
-    <Content Include="Views\tasks\Details.cshtml" />
-    <Content Include="Views\tasks\Edit.cshtml" />
-    <Content Include="Views\tasks\Index.cshtml" />
     <Content Include="Views\companies\Create.cshtml" />
     <Content Include="Views\companies\Delete.cshtml" />
     <Content Include="Views\companies\Details.cshtml" />
@@ -327,6 +322,11 @@
     <Content Include="Views\categories\Details.cshtml" />
     <Content Include="Views\categories\Edit.cshtml" />
     <Content Include="Views\categories\Index.cshtml" />
+    <Content Include="Views\tasks\Create.cshtml" />
+    <Content Include="Views\tasks\Delete.cshtml" />
+    <Content Include="Views\tasks\Details.cshtml" />
+    <Content Include="Views\tasks\Edit.cshtml" />
+    <Content Include="Views\tasks\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

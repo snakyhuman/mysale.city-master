@@ -14,6 +14,12 @@ namespace mysalecity
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.MediaTypeMappings
+.Add(new System.Net.Http.Formatting.RequestHeaderMapping("Accept",
+                              "text/html",
+                              StringComparison.InvariantCultureIgnoreCase,
+                              true,
+                              "application/json"));
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

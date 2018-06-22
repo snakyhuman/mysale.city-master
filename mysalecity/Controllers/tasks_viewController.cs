@@ -6,12 +6,12 @@ using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Web.Helpers;
 using System.Web.Http;
 using System.Web.Http.Description;
 using System.Web.Http.Results;
-using System.Web.Mvc;
 using mysalecity.Models;
-using Newtonsoft.Json;
+
 namespace mysalecity.Controllers
 {
     public class tasks_viewController : ApiController
@@ -19,29 +19,31 @@ namespace mysalecity.Controllers
         private mysale_dbEntities db = new mysale_dbEntities();
 
         // GET: api/tasks_view
-        public IQueryable<tasks_view> Gettasks_view()
-        {
-            return db.tasks_view;
-        }
+        //public IQueryable<tasks_view> Gettasks_view()
+        //{
+        //    return db.tasks_view;
+        //}
 
+        [Route("api/get")]
+       // [HttpGet(typeof(Json))]
+        public JsonResult<List<tasks_view>> Gettasks_view()
+        {
+
+            var tasks = db.tasks_view.ToList<tasks_view>();
+            var res = Json(tasks);
+            return res;
+        }
         // GET: api/tasks_view/5
         [ResponseType(typeof(tasks_view))]
         public IHttpActionResult Gettasks_view(string id)
         {
-            tasks_view tasks_view = db.tasks_view.SingleOrDefault(m => m.text == id); ;
+            tasks_view tasks_view = db.tasks_view.Find(id);
             if (tasks_view == null)
             {
                 return NotFound();
             }
 
             return Ok(tasks_view);
-        }
-
-        public JsonResult<IEnumerable<tasks_view>> GetPeopleDataJson(string selectedRole = "All")
-        {
-            IEnumerable<tasks_view> tasks = db.tasks_view.ToList<tasks_view>();
-            var jsonResult = Json(tasks);
-            return jsonResult;
         }
 
         // PUT: api/tasks_view/5
